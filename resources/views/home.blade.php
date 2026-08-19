@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('meta_description', 'Descubre ofertas, categorías y los productos de belleza más nuevos en ' . ($globalSettings['brand_name'] ?? 'BeautyShop') . '.')
+
 @section('content')
 <!-- Hero Section / Offers Carousel -->
 @if($offers->isNotEmpty())
 <div id="offers-carousel" class="relative w-full" data-carousel="slide">
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+    <div class="relative h-[26rem] overflow-hidden rounded-lg md:h-96">
         @foreach($offers->take(5) as $offer)
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <section class="bg-white dark:bg-gray-900 h-full flex items-center">

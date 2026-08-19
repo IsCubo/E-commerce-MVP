@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('meta_title', $product->name . ' - ' . ($globalSettings['brand_name'] ?? 'BeautyShop'))
+@section('meta_description', Str::limit($product->description ?? 'Descubre ' . $product->name . ' y más productos de belleza.', 150))
+@if($product->images->isNotEmpty())
+    @section('meta_image', asset('storage/' . $product->images->first()->image_path))
+@endif
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="bg-white rounded-lg shadow-lg dark:bg-gray-800 overflow-hidden">

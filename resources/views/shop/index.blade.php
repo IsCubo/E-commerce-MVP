@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('meta_title', 'Tienda - ' . ($globalSettings['brand_name'] ?? 'BeautyShop'))
+@section('meta_description', 'Explora el catálogo completo de productos de belleza de ' . ($globalSettings['brand_name'] ?? 'BeautyShop') . '.')
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row gap-8">
