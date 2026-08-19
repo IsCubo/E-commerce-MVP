@@ -78,7 +78,7 @@
             <p class="text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">Explora nuestra selección curada de productos de belleza</p>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(140px,220px))] justify-center gap-6">
             @foreach($categories as $category)
                 <a href="{{ route('shop.index', ['category' => $category->slug]) }}" 
                    class="group relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 hover:scale-105 perspective-1000">
@@ -118,7 +118,7 @@
 <section id="products" class="bg-white dark:bg-gray-900 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
         <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-8">Nuevos Productos</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] justify-center gap-6">
             @foreach($latestProducts as $product)
                 <x-product-card :product="$product" />
             @endforeach
@@ -134,7 +134,7 @@
 <section class="bg-gray-50 dark:bg-gray-800 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
         <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-8">Combos Especiales</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,340px))] justify-center gap-6">
             @foreach($combos as $combo)
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     @if($combo->image_path)
