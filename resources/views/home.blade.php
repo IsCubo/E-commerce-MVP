@@ -80,34 +80,34 @@
         
         <div class="grid grid-cols-[repeat(auto-fit,minmax(140px,220px))] justify-center gap-6">
             @foreach($categories as $category)
-                <a href="{{ route('shop.index', ['category' => $category->slug]) }}" 
-                   class="group relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 hover:scale-105 perspective-1000">
+                <a href="{{ route('shop.index', ['category' => $category->slug]) }}"
+                   class="group relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
                     <!-- Gradient overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/20 transition-all duration-500"></div>
-                    
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/20 transition-colors duration-300"></div>
+
                     <!-- Content -->
                     <div class="relative p-6 text-center">
                         <!-- Icon placeholder - can be customized per category -->
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary/30 dark:to-primary/40 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
+                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary/30 dark:to-primary/40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-6 h-6 text-primary dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
                             </svg>
                         </div>
-                        
+
                         <h5 class="text-lg font-bold font-serif tracking-tight text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-yellow-400 transition-colors duration-300">
                             {{ $category->name }}
                         </h5>
-                        
+
                         <!-- Decorative arrow -->
-                        <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <svg class="w-4 h-4 mx-auto text-primary dark:text-yellow-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mt-3 opacity-0 group-hover:opacity-100 transform -translate-x-1 group-hover:translate-x-0 transition-all duration-300">
+                            <svg class="w-4 h-4 mx-auto text-primary dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
                         </div>
                     </div>
-                    
+
                     <!-- Top accent line -->
-                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                 </a>
             @endforeach
         </div>
@@ -146,9 +146,23 @@
                         <h5 class="mb-2 text-lg font-serif font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($combo->description, 100) }}</p>
                          <span class="text-2xl font-bold text-gray-900 dark:text-white block mb-4">${{ number_format($combo->price, 2) }}</span>
-                        <a href="{{ $combo->whatsapp_url }}" target="_blank" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 w-full justify-center">
-                            Pedir Combo
-                        </a>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <button type="button"
+                                    data-cart-add
+                                    data-id="combo-{{ $combo->id }}"
+                                    data-name="{{ $combo->name }}"
+                                    data-price="{{ $combo->price }}"
+                                    data-image="{{ $combo->image_path ? asset('storage/' . $combo->image_path) : '' }}"
+                                    class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-sm font-medium text-white bg-dark hover:bg-black rounded-lg transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                Añadir
+                            </button>
+                            <a href="{{ $combo->whatsapp_url }}" target="_blank" class="flex-1 inline-flex items-center justify-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800">
+                                Pedir Combo
+                            </a>
+                        </div>
                     </div>
                 </div>
             @endforeach

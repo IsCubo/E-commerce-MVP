@@ -3,7 +3,7 @@
 <div class="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col h-full">
     <a href="{{ route('shop.show', $product->slug) }}" class="block relative aspect-[3/4] bg-gray-50 dark:bg-gray-900 overflow-hidden">
         @if($product->images->isNotEmpty())
-            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            <img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                  src="{{ asset('storage/' . $product->images->first()->image_path) }}"
                  alt="{{ $product->name }}" loading="lazy">
         @else
@@ -29,7 +29,7 @@
 
     <div class="p-5 flex flex-col flex-grow gap-3">
         <a href="{{ route('shop.show', $product->slug) }}" class="block">
-            <h5 class="text-lg font-serif font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">
+            <h5 class="text-lg font-serif font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors duration-300">
                 {{ $product->name }}
             </h5>
         </a>
@@ -57,7 +57,7 @@
             </a>
             <button type="button"
                     data-cart-add
-                    data-id="{{ $product->id }}"
+                    data-id="product-{{ $product->id }}"
                     data-slug="{{ $product->slug }}"
                     data-name="{{ $product->name }}"
                     data-price="{{ $product->discount_price ?? $product->price }}"
