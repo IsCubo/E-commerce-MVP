@@ -78,7 +78,7 @@
             <p class="text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">Explora nuestra selección curada de productos de belleza</p>
         </div>
         
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(140px,220px))] justify-center gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
             @foreach($categories as $category)
                 <a href="{{ route('shop.index', ['category' => $category->slug]) }}"
                    class="group relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
@@ -86,7 +86,7 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/20 transition-colors duration-300"></div>
 
                     <!-- Content -->
-                    <div class="relative p-6 text-center">
+                    <div class="relative p-4 sm:p-6 text-center">
                         <!-- Icon placeholder - can be customized per category -->
                         <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary/30 dark:to-primary/40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-6 h-6 text-primary dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,32 +134,32 @@
 <section class="bg-gray-50 dark:bg-gray-800 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
         <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-gray-900 dark:text-white mb-8">Combos Especiales</h2>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,340px))] justify-center gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             @foreach($combos as $combo)
-                <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     @if($combo->image_path)
-                        <img class="rounded-t-lg w-full h-48 object-cover" src="{{ asset('storage/' . $combo->image_path) }}" alt="{{ $combo->name }}">
+                        <img class="rounded-t-lg w-full h-32 sm:h-48 object-cover" src="{{ asset('storage/' . $combo->image_path) }}" alt="{{ $combo->name }}">
                     @else
-                        <div class="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
+                        <div class="w-full h-32 sm:h-48 bg-gray-200 rounded-t-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
                     @endif
-                    <div class="p-5">
-                        <h5 class="mb-2 text-lg font-serif font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($combo->description, 100) }}</p>
-                         <span class="text-2xl font-bold text-gray-900 dark:text-white block mb-4">${{ number_format($combo->price, 2) }}</span>
-                        <div class="flex flex-col sm:flex-row gap-2">
+                    <div class="p-3 sm:p-5 flex flex-col flex-grow">
+                        <h5 class="mb-1 sm:mb-2 text-sm sm:text-lg font-serif font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
+                        <p class="mb-2 sm:mb-3 text-xs sm:text-base font-normal text-gray-700 dark:text-gray-400 line-clamp-2 sm:line-clamp-3">{{ Str::limit($combo->description, 100) }}</p>
+                         <span class="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white block mb-2 sm:mb-4">${{ number_format($combo->price, 2) }}</span>
+                        <div class="mt-auto flex flex-col sm:flex-row gap-2">
                             <button type="button"
                                     data-cart-add
                                     data-id="combo-{{ $combo->id }}"
                                     data-name="{{ $combo->name }}"
                                     data-price="{{ $combo->price }}"
                                     data-image="{{ $combo->image_path ? asset('storage/' . $combo->image_path) : '' }}"
-                                    class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-sm font-medium text-white bg-dark hover:bg-black dark:hover:bg-gray-700 rounded-lg transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs sm:text-sm font-medium text-white bg-dark hover:bg-black dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
                                 Añadir
                             </button>
-                            <a href="{{ $combo->whatsapp_url }}" target="_blank" class="flex-1 inline-flex items-center justify-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800">
+                            <a href="{{ $combo->whatsapp_url }}" target="_blank" class="flex-1 inline-flex items-center justify-center py-2 px-3 text-xs sm:text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800">
                                 Pedir Combo
                             </a>
                         </div>
