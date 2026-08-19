@@ -20,7 +20,7 @@
                                 <span class="text-xl text-gray-400 line-through">${{ number_format($offer->price, 2) }}</span>
                             </div>
                             <div class="mt-6">
-                                <a href="{{ route('shop.show', $offer->slug) }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-900 transition-colors">
+                                <a href="{{ route('shop.show', $offer->slug) }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-dark hover:bg-black focus:ring-4 focus:ring-primary/40 transition-colors">
                                     Ver Oferta
                                     <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </a>
@@ -118,39 +118,13 @@
 <section id="products" class="bg-white dark:bg-gray-900 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
         <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-8">Nuevos Productos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach($latestProducts as $product)
-                <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                    <a href="{{ route('shop.show', $product->slug) }}">
-                        @if($product->images->isNotEmpty())
-                            <img class="rounded-t-lg w-full h-48 object-cover" src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="{{ $product->name }}">
-                        @else
-                            <div class="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
-                        @endif
-                    </a>
-                    <div class="p-5">
-                        <a href="{{ route('shop.show', $product->slug) }}">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white truncate">{{ $product->name }}</h5>
-                        </a>
-                        <div class="flex justify-between items-center mb-4">
-                            @if($product->discount_price)
-                                <div>
-                                    <span class="text-gray-500 line-through text-sm">${{ number_format($product->price, 2) }}</span>
-                                    <span class="text-2xl font-bold text-gray-900 dark:text-white">${{ number_format($product->discount_price, 2) }}</span>
-                                </div>
-                            @else
-                                <span class="text-2xl font-bold text-gray-900 dark:text-white">${{ number_format($product->price, 2) }}</span>
-                            @endif
-                        </div>
-                        <a href="{{ $product->whatsapp_url }}" target="_blank" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 w-full justify-center">
-                            Comprar por WhatsApp
-                        </a>
-                    </div>
-                </div>
+                <x-product-card :product="$product" />
             @endforeach
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route('shop.index') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Ver Todos los Productos</a>
+            <a href="{{ route('shop.index') }}" class="inline-flex items-center justify-center text-white bg-dark hover:bg-black focus:ring-4 focus:ring-primary/40 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors">Ver Todos los Productos</a>
         </div>
     </div>
 </section>
@@ -172,7 +146,7 @@
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($combo->description, 100) }}</p>
                          <span class="text-2xl font-bold text-gray-900 dark:text-white block mb-4">${{ number_format($combo->price, 2) }}</span>
-                        <a href="{{ $combo->whatsapp_url }}" target="_blank" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 w-full justify-center">
+                        <a href="{{ $combo->whatsapp_url }}" target="_blank" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 w-full justify-center">
                             Pedir Combo
                         </a>
                     </div>
