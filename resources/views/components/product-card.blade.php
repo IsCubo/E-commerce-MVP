@@ -29,7 +29,7 @@
 
     <div class="p-5 flex flex-col flex-grow gap-3">
         <a href="{{ route('shop.show', $product->slug) }}" class="block">
-            <h5 class="text-lg font-serif font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors duration-300">
+            <h5 class="text-lg font-serif font-bold text-gray-900 dark:text-white truncate group-hover:text-primary dark:group-hover:text-yellow-400 transition-colors duration-300">
                 {{ $product->name }}
             </h5>
         </a>
@@ -52,7 +52,7 @@
 
         <div class="mt-auto flex gap-2 pt-1">
             <a href="{{ route('shop.show', $product->slug) }}"
-               class="flex-1 inline-flex items-center justify-center py-2.5 px-3 text-sm font-semibold text-white bg-dark hover:bg-black rounded-lg transition-colors">
+               class="flex-1 inline-flex items-center justify-center py-2.5 px-3 text-sm font-semibold text-white bg-dark hover:bg-black dark:hover:bg-gray-700 rounded-lg transition-colors">
                 Ver Detalles
             </a>
             <button type="button"

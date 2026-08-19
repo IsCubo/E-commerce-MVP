@@ -20,7 +20,7 @@
                                 <span class="text-xl text-gray-500 dark:text-gray-400 line-through">${{ number_format($offer->price, 2) }}</span>
                             </div>
                             <div class="mt-6">
-                                <a href="{{ route('shop.show', $offer->slug) }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-dark hover:bg-black focus:ring-4 focus:ring-primary/40 transition-colors">
+                                <a href="{{ route('shop.show', $offer->slug) }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-dark hover:bg-black dark:hover:bg-gray-700 focus:ring-4 focus:ring-primary/40 transition-colors">
                                     Ver Oferta
                                     <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </a>
@@ -124,7 +124,7 @@
             @endforeach
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route('shop.index') }}" class="inline-flex items-center justify-center text-white bg-dark hover:bg-black focus:ring-4 focus:ring-primary/40 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors">Ver Todos los Productos</a>
+            <a href="{{ route('shop.index') }}" class="inline-flex items-center justify-center text-white bg-dark hover:bg-black dark:hover:bg-gray-700 focus:ring-4 focus:ring-primary/40 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors">Ver Todos los Productos</a>
         </div>
     </div>
 </section>
@@ -153,7 +153,7 @@
                                     data-name="{{ $combo->name }}"
                                     data-price="{{ $combo->price }}"
                                     data-image="{{ $combo->image_path ? asset('storage/' . $combo->image_path) : '' }}"
-                                    class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-sm font-medium text-white bg-dark hover:bg-black rounded-lg transition-colors">
+                                    class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-sm font-medium text-white bg-dark hover:bg-black dark:hover:bg-gray-700 rounded-lg transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
