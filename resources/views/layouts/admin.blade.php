@@ -65,6 +65,13 @@
         }
         
         /* Dark mode styles for admin */
+        /* body itself was never given a dark background, so it stayed
+           white underneath everything -- invisible normally since the
+           wrapper/content/sidebar all sit on top of it, but it shows
+           through as a white flash during scroll overscroll/bounce. */
+        .dark body {
+            background-color: #1f2937 !important;
+        }
         .dark .content-wrapper,
         .dark .main-footer {
             background-color: #1f2937 !important;
