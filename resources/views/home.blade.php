@@ -118,7 +118,7 @@
 <section id="products" class="bg-white dark:bg-gray-900 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
         <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-gray-900 dark:text-white mb-8">Nuevos Productos</h2>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] justify-center gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             @foreach($latestProducts as $product)
                 <x-product-card :product="$product" />
             @endforeach
