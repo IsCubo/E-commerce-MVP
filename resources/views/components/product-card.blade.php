@@ -67,14 +67,14 @@
     <div class="p-3 sm:p-5 pt-2 sm:pt-3 mt-auto" data-product-qty>
         @if($product->inStock())
             <div class="flex items-stretch gap-1 sm:gap-2">
-                <div class="flex-[2] flex items-center justify-center gap-0.5 sm:gap-1 border border-gray-300 dark:border-gray-600 rounded-lg px-0.5 sm:px-1">
+                <div class="flex-[3] sm:flex-[2] flex items-center justify-center gap-0.5 border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
                     <button type="button" data-qty-decrement aria-label="Disminuir cantidad"
-                            class="w-5 h-5 sm:w-7 sm:h-7 flex-shrink-0 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                            class="w-4 h-4 sm:w-7 sm:h-7 flex-shrink-0 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                         &minus;
                     </button>
-                    <span data-qty-value class="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white w-4 sm:w-5 text-center" data-max="{{ $product->stock }}">1</span>
+                    <span data-qty-value class="text-[11px] sm:text-sm font-semibold text-gray-900 dark:text-white text-center" data-max="{{ $product->stock }}">1</span>
                     <button type="button" data-qty-increment aria-label="Aumentar cantidad"
-                            class="w-5 h-5 sm:w-7 sm:h-7 flex-shrink-0 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                            class="w-4 h-4 sm:w-7 sm:h-7 flex-shrink-0 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                         +
                     </button>
                 </div>
@@ -85,7 +85,7 @@
                         data-name="{{ $product->name }}"
                         data-price="{{ $product->discount_price ?? $product->price }}"
                         data-image="{{ $product->images->isNotEmpty() ? asset('storage/' . $product->images->first()->image_path) : '' }}"
-                        class="flex-[3] inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2 sm:py-2.5 px-1 sm:px-2 text-xs sm:text-sm font-semibold text-white bg-green-700 hover:bg-green-800 rounded-lg transition-colors">
+                        class="flex-[7] sm:flex-[3] inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2 sm:py-2.5 px-1 sm:px-2 text-xs sm:text-sm font-semibold text-white bg-green-700 hover:bg-green-800 rounded-lg transition-colors">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
