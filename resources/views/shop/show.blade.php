@@ -55,7 +55,7 @@
                 <div class="mb-8 flex flex-col sm:flex-row gap-3">
                     <button type="button"
                             data-cart-add
-                            data-id="{{ $product->id }}"
+                            data-id="product-{{ $product->id }}"
                             data-slug="{{ $product->slug }}"
                             data-name="{{ $product->name }}"
                             data-price="{{ $product->discount_price ?? $product->price }}"
