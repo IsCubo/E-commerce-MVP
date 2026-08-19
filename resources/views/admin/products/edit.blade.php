@@ -36,6 +36,10 @@
                                 <label for="discount_price">Precio con Descuento (Opcional)</label>
                                 <input type="number" step="0.01" class="form-control" name="discount_price" value="{{ old('discount_price', $product->discount_price) }}">
                             </div>
+                            <div class="form-group">
+                                <label for="stock">Stock (unidades disponibles)</label>
+                                <input type="number" step="1" min="0" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}" required>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">

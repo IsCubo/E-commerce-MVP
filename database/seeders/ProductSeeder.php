@@ -42,12 +42,14 @@ class ProductSeeder extends Seeder
                 'price' => 45000,
                 'discount_price' => 36000,
                 'is_offer' => true,
+                'stock' => 18,
             ],
             [
                 'category' => 'maquillaje',
                 'name' => 'Paleta de Sombras Nude',
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: 12 tonos nude altamente pigmentados, acabados mate y shimmer.\nModo de uso: aplicar con brocha o dedos y difuminar para un degradado natural.\nIngredientes: talco cosmético, mica, pigmentos minerales.",
                 'price' => 38000,
+                'stock' => 25,
             ],
             [
                 'category' => 'maquillaje',
@@ -55,12 +57,14 @@ class ProductSeeder extends Seeder
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: trazo preciso, resistente al agua y de larga duración.\nModo de uso: aplicar sobre el párpado siguiendo la línea de las pestañas.\nIngredientes: cera de carnauba, pigmentos negros.",
                 'price' => 15000,
                 'discount_price' => 12000,
+                'stock' => 4,
             ],
             [
                 'category' => 'maquillaje',
                 'name' => 'Rubor en Polvo Compacto',
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: color buildable de acabado natural, ilumina el rostro.\nModo de uso: aplicar con brocha sobre los pómulos y difuminar hacia las sienes.\nIngredientes: talco cosmético, pigmentos minerales, vitamina E.",
                 'price' => 22000,
+                'stock' => 0,
             ],
             [
                 'category' => 'skin-care',
@@ -69,12 +73,14 @@ class ProductSeeder extends Seeder
                 'price' => 55000,
                 'discount_price' => 44000,
                 'is_offer' => true,
+                'stock' => 12,
             ],
             [
                 'category' => 'skin-care',
                 'name' => 'Crema Hidratante de Día SPF30',
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: hidratación 24h, protección solar SPF30, textura ligera.\nZonas de aplicación: rostro.\nIngredientes: filtros solares, niacinamida, glicerina.",
                 'price' => 42000,
+                'stock' => 30,
             ],
             [
                 'category' => 'skin-care',
@@ -82,12 +88,14 @@ class ProductSeeder extends Seeder
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: equilibra el pH, minimiza poros, refresca la piel.\nZonas de aplicación: rostro, después de la limpieza.\nIngredientes: agua de rosas, extracto de hamamelis.",
                 'price' => 28000,
                 'discount_price' => 23000,
+                'stock' => 8,
             ],
             [
                 'category' => 'cabello',
                 'name' => 'Shampoo Reparador de Keratina',
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: repara puntas abiertas, aporta brillo y suavidad.\nModo de uso: aplicar sobre cabello húmedo, masajear y enjuagar.\nIngredientes: keratina hidrolizada, aceite de argán.",
                 'price' => 32000,
+                'stock' => 15,
             ],
             [
                 'category' => 'cabello',
@@ -96,12 +104,14 @@ class ProductSeeder extends Seeder
                 'price' => 26000,
                 'discount_price' => 20000,
                 'is_offer' => true,
+                'stock' => 3,
             ],
             [
                 'category' => 'perfumeria',
                 'name' => 'Perfume Floral de Larga Duración',
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: fragancia floral de larga duración, notas de jazmín y vainilla.\nModo de uso: aplicar en puntos de pulso (muñecas, cuello).\nIngredientes: alcohol desnaturalizado, fragancia, agua.",
                 'price' => 65000,
+                'stock' => 20,
             ],
             [
                 'category' => 'cuidado-personal',
@@ -109,6 +119,7 @@ class ProductSeeder extends Seeder
                 'description' => "Lo que tienes que saber de este producto\nBeneficios: hidratación profunda, piel suave hasta por 48h.\nZonas de aplicación: cuerpo.\nIngredientes: manteca de karité, glicerina, vitamina E.",
                 'price' => 24000,
                 'discount_price' => 19000,
+                'stock' => 10,
             ],
         ];
 
@@ -126,6 +137,7 @@ class ProductSeeder extends Seeder
                     'description' => $data['description'],
                     'price' => $data['price'],
                     'discount_price' => $data['discount_price'] ?? null,
+                    'stock' => $data['stock'] ?? 0,
                     'is_offer' => $data['is_offer'] ?? false,
                     'is_active' => true,
                 ]

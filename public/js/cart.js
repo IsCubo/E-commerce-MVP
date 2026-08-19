@@ -53,17 +53,38 @@
         return items.reduce(function (sum, item) { return sum + item.quantity; }, 0);
     }
 
-    function addItem(product) {
+    function addItem(product, quantity) {
+        quantity = Math.max(1, parseInt(quantity, 10) || 1);
         var items = readCart();
         var existing = items.filter(function (i) { return i.id === product.id; })[0];
         if (existing) {
-            existing.quantity += 1;
+            existing.quantity += quantity;
         } else {
-            product.quantity = 1;
+            product.quantity = quantity;
             items.push(product);
         }
         writeCart(items);
         openDrawer();
+    }
+
+    /**
+     * Read/adjust the per-card quantity stepper (before it's added to the
+     * cart) that sits next to a [data-cart-add] button, bounded to
+     * [1, data-max] (the product's stock, when the card knows it).
+     */
+    function readCardQuantity(scope) {
+        var qtyEl = scope.querySelector('[data-qty-value]');
+        return qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+    }
+
+    function adjustCardQuantity(scope, delta) {
+        var qtyEl = scope.querySelector('[data-qty-value]');
+        if (!qtyEl) return;
+        var max = parseInt(qtyEl.getAttribute('data-max'), 10);
+        var next = (parseInt(qtyEl.textContent, 10) || 1) + delta;
+        next = Math.max(1, next);
+        if (!isNaN(max)) next = Math.min(next, max);
+        qtyEl.textContent = String(next);
     }
 
     function removeItem(id) {
@@ -187,12 +208,34 @@
             var addBtn = target.closest('[data-cart-add]');
             if (addBtn) {
                 e.preventDefault();
+                var qtyScope = addBtn.closest('[data-product-qty]');
+                var quantity = qtyScope ? readCardQuantity(qtyScope) : 1;
                 addItem({
                     id: addBtn.getAttribute('data-id'),
                     name: addBtn.getAttribute('data-name'),
                     price: parseFloat(addBtn.getAttribute('data-price')) || 0,
                     image: addBtn.getAttribute('data-image') || ''
-                });
+                }, quantity);
+                if (qtyScope) {
+                    var qtyEl = qtyScope.querySelector('[data-qty-value]');
+                    if (qtyEl) qtyEl.textContent = '1';
+                }
+                return;
+            }
+
+            var qtyIncBtn = target.closest('[data-qty-increment]');
+            if (qtyIncBtn) {
+                e.preventDefault();
+                var incScope = qtyIncBtn.closest('[data-product-qty]');
+                if (incScope) adjustCardQuantity(incScope, 1);
+                return;
+            }
+
+            var qtyDecBtn = target.closest('[data-qty-decrement]');
+            if (qtyDecBtn) {
+                e.preventDefault();
+                var decScope = qtyDecBtn.closest('[data-product-qty]');
+                if (decScope) adjustCardQuantity(decScope, -1);
                 return;
             }
 
