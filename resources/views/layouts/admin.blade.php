@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel | BeautyShop</title>
+    <title>Admin Panel | {{ $globalSettings['brand_name'] ?? config('app.name', 'BeautyShop') }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -13,6 +13,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     
     <style>
+        /* Brand colors for dashboard stat boxes (replace AdminLTE defaults).
+           bg-warning's default text color is dark (meant for its original yellow
+           background), so text color is forced to white on all four here too. */
+        .small-box.bg-info,
+        .small-box.bg-success,
+        .small-box.bg-warning,
+        .small-box.bg-danger {
+            color: #fff !important;
+        }
+        .small-box.bg-info { background-color: #1A1A1A !important; }
+        .small-box.bg-success { background-color: #8A6D2F !important; }
+        .small-box.bg-warning { background-color: #4A4A4A !important; }
+        .small-box.bg-danger { background-color: #6B5223 !important; }
+        .small-box.bg-info h3, .small-box.bg-info p,
+        .small-box.bg-success h3, .small-box.bg-success p,
+        .small-box.bg-warning h3, .small-box.bg-warning p,
+        .small-box.bg-danger h3, .small-box.bg-danger p {
+            color: #fff !important;
+        }
+
         /* Dark mode transitions - scoped to avoid breaking AdminLTE animations */
         .dark .content-wrapper,
         .dark .main-header,
@@ -250,7 +270,7 @@
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; {{ date('Y') }} BeautyShop.</strong>
+        <strong>Copyright &copy; {{ date('Y') }} {{ $globalSettings['brand_name'] ?? config('app.name', 'BeautyShop') }}.</strong>
     </footer>
 </div>
 

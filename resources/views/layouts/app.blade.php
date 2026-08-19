@@ -59,8 +59,11 @@
         body { font-family: 'Montserrat', sans-serif; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Smooth color transitions for dark mode */
-        * {
+        /* Smooth color transitions for dark mode toggle.
+           Interactive elements are excluded so their own hover/focus transitions
+           (Tailwind's transition-colors/transition-all utilities) stay snappy
+           instead of being forced through this 300ms easing on every hover. */
+        *:not(a):not(button):not(input):not(textarea):not(select):not(svg):not(path) {
             transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 300ms;
