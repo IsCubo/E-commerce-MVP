@@ -13,6 +13,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     
     <style>
+        /* Logo in sidebar brand-link: AdminLTE assumes a square image for
+           .img-circle. A non-square uploaded logo gets stretched into an
+           oval and overflows the collapsed (icon-only) sidebar width.
+           Force a fixed square box with a centered crop instead. */
+        .brand-image.img-circle {
+            width: 33px;
+            height: 33px;
+            object-fit: cover;
+        }
+
         /* Brand colors for dashboard stat boxes (replace AdminLTE defaults).
            bg-warning's default text color is dark (meant for its original yellow
            background), so text color is forced to white on all four here too. */

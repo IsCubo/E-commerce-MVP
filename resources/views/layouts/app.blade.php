@@ -114,7 +114,7 @@
                     <span class="hidden sm:inline">Contactar</span>
                 </a>
                 <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
+                    <span class="sr-only">Abrir menú principal</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
@@ -149,8 +149,24 @@
     <!-- Footer -->
     <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <a href="{{ route('home') }}" class="text-lg font-serif font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                    {{ $globalSettings['brand_name'] ?? 'BeautyShop' }}
+                </a>
+                <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+                    <li>
+                        <a href="{{ route('home') }}" class="hover:text-primary dark:hover:text-primary me-4 md:me-6">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('shop.index') }}" class="hover:text-primary dark:hover:text-primary me-4 md:me-6">Tienda</a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/{{ $globalSettings['whatsapp_number'] ?? '' }}" target="_blank" class="hover:text-primary dark:hover:text-primary">Contacto por WhatsApp</a>
+                    </li>
+                </ul>
+            </div>
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ date('Y') }} <a href="{{ route('home') }}" class="hover:underline">{{ $globalSettings['brand_name'] ?? 'BeautyShop' }}™</a>. All Rights Reserved.</span>
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{ date('Y') }} <a href="{{ route('home') }}" class="hover:underline">{{ $globalSettings['brand_name'] ?? 'BeautyShop' }}™</a>. Todos los derechos reservados.</span>
         </div>
     </footer>
 
