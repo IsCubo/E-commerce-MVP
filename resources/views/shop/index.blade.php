@@ -66,7 +66,7 @@
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 dark:text-white text-gray-900">Catálogo de Productos</h2>
             
             @if($products->count() > 0)
-                <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] justify-center gap-8">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                     @foreach($products as $product)
                         <x-product-card :product="$product" />
                     @endforeach
