@@ -3,6 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Apply the dark/light theme before anything renders, so the page
+         never flashes the wrong theme for a moment on load/navigation. -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark'
+            || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
     <title>Admin Panel | {{ $globalSettings['brand_name'] ?? config('app.name', 'BeautyShop') }}</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -291,40 +301,30 @@
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
-<!-- Dark Mode Script -->
+<!-- Dark Mode Toggle Script (the theme itself was already applied in
+     <head>, before first paint -- this just wires up the icon/button) -->
 <script>
     const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
     const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-    
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+
+    if (document.documentElement.classList.contains('dark')) {
         themeToggleLightIcon.style.display = 'inline';
-        document.documentElement.classList.add('dark');
     } else {
         themeToggleDarkIcon.style.display = 'inline';
     }
-    
+
     const themeToggleBtn = document.getElementById('theme-toggle');
-    
+
     themeToggleBtn.addEventListener('click', function() {
         themeToggleDarkIcon.style.display = themeToggleDarkIcon.style.display === 'none' ? 'inline' : 'none';
         themeToggleLightIcon.style.display = themeToggleLightIcon.style.display === 'none' ? 'inline' : 'none';
-        
-        if (localStorage.getItem('color-theme')) {
-            if (localStorage.getItem('color-theme') === 'light') {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            }
+
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
         } else {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
         }
     });
 </script>

@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Apply the dark/light theme before anything renders, so the page
+         never flashes the wrong theme for a moment on load/navigation.
+         Must run before the Tailwind CDN script below (order matters:
+         synchronous scripts execute top-to-bottom as the parser reaches
+         them). The click-to-toggle logic lives at the end of <body>,
+         once the toggle button/icons exist in the DOM. -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark'
+            || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
     @php
         $brandName = $globalSettings['brand_name'] ?? config('app.name', 'Beauty Shop');
         $metaTitle = trim(($__env->yieldContent('meta_title') ?: $brandName) . '');
@@ -200,45 +213,30 @@
         </div>
     </aside>
 
-    <!-- Dark Mode Script -->
+    <!-- Dark Mode Toggle Script (the theme itself was already applied in
+         <head>, before first paint -- this just wires up the icon/button) -->
     <script>
-        // Dark mode toggle with localStorage persistence
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        
-        // Change the icons inside the button based on previous settings
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+
+        if (document.documentElement.classList.contains('dark')) {
             themeToggleLightIcon.classList.remove('hidden');
-            document.documentElement.classList.add('dark');
         } else {
             themeToggleDarkIcon.classList.remove('hidden');
         }
-        
+
         const themeToggleBtn = document.getElementById('theme-toggle');
-        
+
         themeToggleBtn.addEventListener('click', function() {
-            // toggle icons inside button
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
-            
-            // if set via local storage previously
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-            // if NOT set via local storage previously
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
             } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
             }
         });
     </script>
