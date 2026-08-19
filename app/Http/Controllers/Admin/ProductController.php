@@ -35,6 +35,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
+            'stock' => $request->stock,
             'is_offer' => $request->has('is_offer'),
             'is_active' => $request->has('is_active'),
         ]);
@@ -65,6 +66,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
+            'stock' => $request->stock,
             'is_offer' => $request->has('is_offer'),
             'is_active' => $request->has('is_active'),
         ]);
