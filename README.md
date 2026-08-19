@@ -119,3 +119,9 @@ Log in to the Admin Panel to update:
     ```bash
     php artisan migrate:fresh --seed
     ```
+- **Just (re)populate the demo catalog** (categories, products with images, combos)
+  without touching the admin user or settings — one specific command:
+    ```bash
+    php artisan catalog:seed
+    ```
+  Also safe to run repeatedly; it updates the existing catalog instead of duplicating it.
