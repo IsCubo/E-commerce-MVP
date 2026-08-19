@@ -17,7 +17,7 @@
                             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">{{ Str::limit($offer->description, 100) }}</p>
                             <div class="flex items-center gap-4">
                                 <span class="text-3xl font-bold text-green-600 dark:text-green-400">${{ number_format($offer->discount_price, 2) }}</span>
-                                <span class="text-xl text-gray-400 line-through">${{ number_format($offer->price, 2) }}</span>
+                                <span class="text-xl text-gray-500 dark:text-gray-400 line-through">${{ number_format($offer->price, 2) }}</span>
                             </div>
                             <div class="mt-6">
                                 <a href="{{ route('shop.show', $offer->slug) }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-dark hover:bg-black focus:ring-4 focus:ring-primary/40 transition-colors">
@@ -71,7 +71,7 @@
     
     <div class="max-w-screen-xl px-4 mx-auto relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-extrabold font-serif text-gray-900 dark:text-white mb-4 inline-block relative">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4 inline-block relative">
                 Nuestras Categorías
                 <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
             </h2>
@@ -117,7 +117,7 @@
 <!-- Latest Products Section -->
 <section id="products" class="bg-white dark:bg-gray-900 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
-        <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-8">Nuevos Productos</h2>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-gray-900 dark:text-white mb-8">Nuevos Productos</h2>
         <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] justify-center gap-6">
             @foreach($latestProducts as $product)
                 <x-product-card :product="$product" />
@@ -133,7 +133,7 @@
 @if($combos->isNotEmpty())
 <section class="bg-gray-50 dark:bg-gray-800 py-12">
     <div class="max-w-screen-xl px-4 mx-auto">
-        <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-8">Combos Especiales</h2>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-gray-900 dark:text-white mb-8">Combos Especiales</h2>
         <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,340px))] justify-center gap-6">
             @foreach($combos as $combo)
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -143,7 +143,7 @@
                         <div class="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
                     @endif
                     <div class="p-5">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
+                        <h5 class="mb-2 text-lg font-serif font-bold tracking-tight text-gray-900 dark:text-white">{{ $combo->name }}</h5>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($combo->description, 100) }}</p>
                          <span class="text-2xl font-bold text-gray-900 dark:text-white block mb-4">${{ number_format($combo->price, 2) }}</span>
                         <a href="{{ $combo->whatsapp_url }}" target="_blank" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 w-full justify-center">

@@ -63,7 +63,7 @@
 
         <!-- Product Grid -->
         <main class="w-full md:w-3/4">
-            <h2 class="text-3xl font-serif font-bold mb-8 dark:text-white text-gray-900">Catálogo de Productos</h2>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 dark:text-white text-gray-900">Catálogo de Productos</h2>
             
             @if($products->count() > 0)
                 <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] justify-center gap-8">
