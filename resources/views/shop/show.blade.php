@@ -79,7 +79,7 @@
     @if($relatedProducts->isNotEmpty())
         <div class="mt-12">
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 dark:text-white text-gray-900">Productos Relacionados</h2>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,260px))] justify-center gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                  @foreach($relatedProducts as $related)
                     <x-product-card :product="$related" />
                 @endforeach
