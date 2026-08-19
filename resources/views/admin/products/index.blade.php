@@ -22,6 +22,7 @@
                             <th>Nombre</th>
                             <th>Categoría</th>
                             <th>Precio</th>
+                            <th>Stock</th>
                             <th>Oferta</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -45,6 +46,13 @@
                                         <span class="text-success">${{ number_format($product->discount_price, 2) }}</span>
                                     @else
                                         ${{ number_format($product->price, 2) }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($product->stock > 0)
+                                        <span class="badge {{ $product->stock <= 5 ? 'badge-warning' : 'badge-success' }}">{{ $product->stock }}</span>
+                                    @else
+                                        <span class="badge badge-danger">Agotado</span>
                                     @endif
                                 </td>
                                 <td>
@@ -76,7 +84,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">No hay productos registrados.</td>
+                                <td colspan="8" class="text-center">No hay productos registrados.</td>
                             </tr>
                         @endforelse
                     </tbody>

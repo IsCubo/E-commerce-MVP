@@ -18,11 +18,21 @@ class Product extends Model
         'description',
         'price',
         'discount_price',
+        'stock',
         'is_offer',
         'is_active',
     ];
 
+    protected $casts = [
+        'stock' => 'integer',
+    ];
+
     protected $appends = ['whatsapp_url'];
+
+    public function inStock(): bool
+    {
+        return $this->stock > 0;
+    }
 
     public function category(): BelongsTo
     {
