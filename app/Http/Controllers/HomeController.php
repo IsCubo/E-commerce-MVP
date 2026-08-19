@@ -21,7 +21,7 @@ class HomeController extends Controller
                         ->get();
 
         $latestProducts = Product::where('is_active', true)
-                                ->with('images')
+                                ->with('images', 'category')
                                 ->latest()
                                 ->take(8)
                                 ->get();
