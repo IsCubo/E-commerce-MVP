@@ -33,7 +33,7 @@
                             <tr>
                                 <td>
                                     @if($product->images->isNotEmpty())
-                                        <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="{{ $product->name }}" width="50">
+                                        <img src="{{ upload_url($product->images->first()->image_path) }}" alt="{{ $product->name }}" width="50">
                                     @else
                                         <span class="text-muted">Sin imagen</span>
                                     @endif

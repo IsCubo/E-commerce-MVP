@@ -9,7 +9,7 @@
         <div class="relative aspect-[3/4] bg-gray-50 dark:bg-gray-900 overflow-hidden">
             @if($product->images->isNotEmpty())
                 <img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 {{ $product->inStock() ? '' : 'opacity-60' }}"
-                     src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                     src="{{ upload_url($product->images->first()->image_path) }}"
                      alt="{{ $product->name }}" loading="lazy">
             @else
                 <div class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
@@ -84,7 +84,7 @@
                         data-slug="{{ $product->slug }}"
                         data-name="{{ $product->name }}"
                         data-price="{{ $product->discount_price ?? $product->price }}"
-                        data-image="{{ $product->images->isNotEmpty() ? asset('storage/' . $product->images->first()->image_path) : '' }}"
+                        data-image="{{ $product->images->isNotEmpty() ? upload_url($product->images->first()->image_path) : '' }}"
                         class="flex-[55] sm:flex-[3] inline-flex items-center justify-center gap-1 sm:gap-1.5 py-2 sm:py-2.5 px-1 sm:px-2 text-xs sm:text-sm font-semibold text-white bg-green-700 hover:bg-green-800 rounded-lg transition-colors">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>

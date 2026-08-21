@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -29,6 +31,8 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name),
         ]);
 
+        Cache::forget(HomeController::CACHE_KEY);
+
         return redirect()->route('categories.index')
             ->with('success', 'Categoría creada correctamente.');
     }
@@ -45,6 +49,8 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name),
         ]);
 
+        Cache::forget(HomeController::CACHE_KEY);
+
         return redirect()->route('categories.index')
             ->with('success', 'Categoría actualizada correctamente.');
     }
@@ -52,6 +58,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+
+        Cache::forget(HomeController::CACHE_KEY);
 
         return redirect()->route('categories.index')
             ->with('success', 'Categoría eliminada correctamente.');

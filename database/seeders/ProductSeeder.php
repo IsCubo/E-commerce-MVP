@@ -156,5 +156,10 @@ class ProductSeeder extends Seeder
                 'image_path' => $imagePath,
             ]);
         }
+
+        // Limpia de storage/app/public/products cualquier imagen que ya no
+        // esté referenciada por ningún producto (evita huérfanos si se
+        // vuelve a sembrar tras renombrar/quitar productos del catálogo).
+        $this->pruneOrphanedImages('products', ProductImage::pluck('image_path')->all());
     }
 }

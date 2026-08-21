@@ -22,7 +22,7 @@
         $brandName = $globalSettings['brand_name'] ?? config('app.name', 'Beauty Shop');
         $metaTitle = trim(($__env->yieldContent('meta_title') ?: $brandName) . '');
         $metaDescription = trim(($__env->yieldContent('meta_description') ?: 'Descubre productos de belleza en ' . $brandName . '.') . '');
-        $metaImage = $__env->yieldContent('meta_image') ?: (isset($globalSettings['logo_path']) && $globalSettings['logo_path'] ? asset('storage/' . $globalSettings['logo_path']) : null);
+        $metaImage = $__env->yieldContent('meta_image') ?: (isset($globalSettings['logo_path']) && $globalSettings['logo_path'] ? upload_url($globalSettings['logo_path']) : null);
     @endphp
 
     <title>{{ $metaTitle }}</title>
@@ -105,7 +105,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse group">
                 @if(isset($globalSettings['logo_path']) && $globalSettings['logo_path'])
-                    <img src="{{ asset('storage/' . $globalSettings['logo_path']) }}" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" alt="Logo">
+                    <img src="{{ upload_url($globalSettings['logo_path']) }}" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" alt="Logo">
                 @endif
                 <span class="self-center text-2xl font-serif font-bold text-gray-900 dark:text-white tracking-wide">{{ $globalSettings['brand_name'] ?? 'BeautyShop' }}</span>
             </a>

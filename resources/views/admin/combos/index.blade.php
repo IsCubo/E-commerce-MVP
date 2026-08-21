@@ -30,7 +30,7 @@
                             <tr>
                                 <td>
                                     @if($combo->image_path)
-                                        <img src="{{ asset('storage/' . $combo->image_path) }}" alt="{{ $combo->name }}" width="50">
+                                        <img src="{{ upload_url($combo->image_path) }}" alt="{{ $combo->name }}" width="50">
                                     @else
                                         <span class="text-muted">Sin imagen</span>
                                     @endif

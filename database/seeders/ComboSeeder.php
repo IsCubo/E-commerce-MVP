@@ -74,5 +74,10 @@ class ComboSeeder extends Seeder
             Storage::disk('public')->put($imagePath, $this->placeholderImage($data['name'], self::IMAGE_BG));
             $combo->update(['image_path' => $imagePath]);
         }
+
+        // Limpia de storage/app/public/combos cualquier imagen que ya no
+        // esté referenciada por ningún combo (evita huérfanos si se vuelve
+        // a sembrar tras renombrar/quitar combos del catálogo).
+        $this->pruneOrphanedImages('combos', Combo::whereNotNull('image_path')->pluck('image_path')->all());
     }
 }

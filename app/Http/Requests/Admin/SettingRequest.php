@@ -25,7 +25,9 @@ class SettingRequest extends FormRequest
             'brand_name' => 'required|string|max:255',
             'whatsapp_number' => 'required|string|max:20',
             'welcome_message' => 'nullable|string',
-            'logo' => 'nullable|image|max:2048', // 2MB Max
+            // Se comprime y convierte a WebP al guardarlo (ver ImageUploadService),
+            // por eso se admite un archivo original más pesado que el que queda en disco.
+            'logo' => 'nullable|image|max:8192', // 8MB Max (antes de comprimir)
         ];
     }
 }

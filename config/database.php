@@ -59,7 +59,18 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                (PHP_VERSION_ID >= 80500 ? \Pdo\Mysql::ATTR_SSL_CA : \PDO::MYSQL_ATTR_SSL_CA) => env('MYSQL_ATTR_SSL_CA'),
+                // Acepta tanto una ruta absoluta como una relativa al proyecto
+                // en MYSQL_ATTR_SSL_CA, para que no falle si el .env queda con
+                // una ruta relativa (p. ej. "storage/certs/aiven-ca.pem").
+                (PHP_VERSION_ID >= 80500 ? \Pdo\Mysql::ATTR_SSL_CA : \PDO::MYSQL_ATTR_SSL_CA) => ($sslCa = env('MYSQL_ATTR_SSL_CA'))
+                    ? (preg_match('/^([a-zA-Z]:[\\\\\/]|\/)/', $sslCa) ? $sslCa : base_path($sslCa))
+                    : null,
+                // Reutiliza la conexión (y el handshake SSL) entre requests dentro
+                // del mismo worker de PHP-FPM en vez de reconectar cada vez.
+                // Con una BD remota (Aiven) esto evita pagar el TLS handshake
+                // completo en cada página — es la optimización de mayor impacto
+                // aquí. Desactivable con DB_PERSISTENT=false si da problemas.
+                \PDO::ATTR_PERSISTENT => env('DB_PERSISTENT', true),
             ]) : [],
         ],
 
@@ -79,7 +90,18 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                (PHP_VERSION_ID >= 80500 ? \Pdo\Mysql::ATTR_SSL_CA : \PDO::MYSQL_ATTR_SSL_CA) => env('MYSQL_ATTR_SSL_CA'),
+                // Acepta tanto una ruta absoluta como una relativa al proyecto
+                // en MYSQL_ATTR_SSL_CA, para que no falle si el .env queda con
+                // una ruta relativa (p. ej. "storage/certs/aiven-ca.pem").
+                (PHP_VERSION_ID >= 80500 ? \Pdo\Mysql::ATTR_SSL_CA : \PDO::MYSQL_ATTR_SSL_CA) => ($sslCa = env('MYSQL_ATTR_SSL_CA'))
+                    ? (preg_match('/^([a-zA-Z]:[\\\\\/]|\/)/', $sslCa) ? $sslCa : base_path($sslCa))
+                    : null,
+                // Reutiliza la conexión (y el handshake SSL) entre requests dentro
+                // del mismo worker de PHP-FPM en vez de reconectar cada vez.
+                // Con una BD remota (Aiven) esto evita pagar el TLS handshake
+                // completo en cada página — es la optimización de mayor impacto
+                // aquí. Desactivable con DB_PERSISTENT=false si da problemas.
+                \PDO::ATTR_PERSISTENT => env('DB_PERSISTENT', true),
             ]) : [],
         ],
 

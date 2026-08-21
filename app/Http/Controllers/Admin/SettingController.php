@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SettingRequest;
 use App\Models\Setting;
+use App\Providers\AppServiceProvider;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class SettingController extends Controller
 {
+    public function __construct(protected ImageUploadService $imageUploadService)
+    {
+    }
+
     public function index(): View
     {
         $settings = Setting::all()->pluck('value', 'key');
@@ -33,12 +39,12 @@ class SettingController extends Controller
 
         // Handle Logo Upload
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('branding', 'public');
-            
+            $path = $this->imageUploadService->store($request->file('logo'), 'branding');
+
             // Delete old logo if exists
             $oldLogo = Setting::where('key', 'logo_path')->first();
-            if ($oldLogo && $oldLogo->value) {
-                Storage::disk('public')->delete($oldLogo->value);
+            if ($oldLogo) {
+                $this->imageUploadService->delete($oldLogo->value);
             }
 
             Setting::updateOrCreate(
@@ -46,6 +52,11 @@ class SettingController extends Controller
                 ['value' => $path]
             );
         }
+
+        // Los settings quedan cacheados "para siempre" (ver AppServiceProvider)
+        // porque se leen en cada vista; hay que invalidarlos explícitamente
+        // cada vez que se guardan cambios acá.
+        Cache::forget(AppServiceProvider::SETTINGS_CACHE_KEY);
 
         return back()->with('success', 'Configuración actualizada correctamente.');
     }

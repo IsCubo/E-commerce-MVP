@@ -2,6 +2,8 @@
 
 namespace Database\Seeders\Concerns;
 
+use Illuminate\Support\Facades\Storage;
+
 /**
  * Generates simple, on-brand SVG placeholder images for seeded products
  * and combos, so a fresh install has a fully populated catalog without
@@ -63,5 +65,31 @@ SVG;
         }
 
         return $lines ?: [$text];
+    }
+
+    /**
+     * Borra del disco los archivos de $folder que ya no están referenciados
+     * por ningún registro de la BD (p. ej. el placeholder de un producto
+     * que fue renombrado, quitado del array de seed, o eliminado), para que
+     * re-sembrar el catálogo no deje imágenes huérfanas acumulándose en
+     * storage/app/public.
+     *
+     * $keepPaths debe traer las rutas (relativas al disco) que SÍ siguen
+     * en uso — típicamente Product::pluck('image_path') o similar — para
+     * no tocar archivos de imágenes reales subidas por un admin.
+     */
+    protected function pruneOrphanedImages(string $folder, array $keepPaths, string $disk = 'public'): void
+    {
+        $storage = Storage::disk($disk);
+
+        if (! $storage->exists($folder)) {
+            return;
+        }
+
+        $orphans = array_diff($storage->files($folder), $keepPaths);
+
+        if ($orphans !== []) {
+            $storage->delete($orphans);
+        }
     }
 }

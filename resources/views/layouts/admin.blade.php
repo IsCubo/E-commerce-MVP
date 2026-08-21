@@ -187,7 +187,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="{{ route('dashboard') }}" class="brand-link">
              @if(isset($globalSettings['logo_path']) && $globalSettings['logo_path'])
-                <img src="{{ asset('storage/' . $globalSettings['logo_path']) }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="{{ upload_url($globalSettings['logo_path']) }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
              @else
                 <i class="fas fa-spa brand-image elevation-3" style="opacity: .8; font-size: 1.5rem; line-height: 1.5; margin-left: 0.8rem;"></i>
              @endif
