@@ -30,7 +30,9 @@ class ProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0|lt:price',
             'stock' => 'required|integer|min:0',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            // Se comprimen y convierten a WebP al guardarlas (ver ImageUploadService),
+            // por eso se admite un archivo original más pesado que el que queda en disco.
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:8192',
         ];
     }
 }

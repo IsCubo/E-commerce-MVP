@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Http\Requests\Admin\ComboRequest;
 use App\Models\Combo;
 use App\Models\Product;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ComboController extends Controller
 {
+    public function __construct(protected ImageUploadService $imageUploadService)
+    {
+    }
+
     public function index(): View
     {
         $combos = Combo::latest()->paginate(10);
@@ -36,7 +42,7 @@ class ComboController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('combos', 'public');
+            $path = $this->imageUploadService->store($request->file('image'), 'combos');
             $combo->update(['image_path' => $path]);
         }
 
@@ -46,6 +52,8 @@ class ComboController extends Controller
             $syncData[$product['id']] = ['quantity' => $product['quantity']];
         }
         $combo->products()->sync($syncData);
+
+        Cache::forget(HomeController::CACHE_KEY);
 
         return redirect()->route('combos.index')
             ->with('success', 'Combo creado correctamente.');
@@ -70,10 +78,8 @@ class ComboController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image
-            if ($combo->image_path) {
-                Storage::disk('public')->delete($combo->image_path);
-            }
-            $path = $request->file('image')->store('combos', 'public');
+            $this->imageUploadService->delete($combo->image_path);
+            $path = $this->imageUploadService->store($request->file('image'), 'combos');
             $combo->update(['image_path' => $path]);
         }
 
@@ -84,16 +90,18 @@ class ComboController extends Controller
         }
         $combo->products()->sync($syncData);
 
+        Cache::forget(HomeController::CACHE_KEY);
+
         return redirect()->route('combos.index')
             ->with('success', 'Combo actualizado correctamente.');
     }
 
     public function destroy(Combo $combo)
     {
-        if ($combo->image_path) {
-            Storage::disk('public')->delete($combo->image_path);
-        }
+        $this->imageUploadService->delete($combo->image_path);
         $combo->delete();
+
+        Cache::forget(HomeController::CACHE_KEY);
 
         return redirect()->route('combos.index')
             ->with('success', 'Combo eliminado correctamente.');

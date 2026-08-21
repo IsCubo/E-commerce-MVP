@@ -33,7 +33,7 @@
                                 </div>
                                 @if($combo->image_path)
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $combo->image_path) }}" alt="Imagen actual" style="max-height: 100px;">
+                                        <img src="{{ upload_url($combo->image_path) }}" alt="Imagen actual" style="max-height: 100px;">
                                     </div>
                                 @endif
                             </div>

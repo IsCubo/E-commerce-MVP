@@ -45,7 +45,7 @@
                         </div>
                         @if(isset($settings['logo_path']) && $settings['logo_path'])
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $settings['logo_path']) }}" alt="Logo Actual" style="max-height: 100px;">
+                                <img src="{{ upload_url($settings['logo_path']) }}" alt="Logo Actual" style="max-height: 100px;">
                             </div>
                         @endif
                     </div>

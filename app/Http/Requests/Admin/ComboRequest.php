@@ -25,7 +25,9 @@ class ComboRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            // Se comprime y convierte a WebP al guardarla (ver ImageUploadService),
+            // por eso se admite un archivo original más pesado que el que queda en disco.
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:8192',
             'products' => 'required|array|min:1',
             'products.*.id' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',

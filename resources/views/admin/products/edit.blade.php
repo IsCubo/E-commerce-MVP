@@ -78,7 +78,7 @@
                         <div class="row">
                             @foreach($product->images as $image)
                                 <div class="col-md-3 text-center mb-3">
-                                    <img src="{{ asset('storage/' . $image->image_path) }}" class="img-thumbnail" style="height: 150px; object-fit: cover;">
+                                    <img src="{{ upload_url($image->image_path) }}" class="img-thumbnail" style="height: 150px; object-fit: cover;">
                                     <div class="mt-2">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="del_{{ $image->id }}" name="delete_images[]" value="{{ $image->id }}">

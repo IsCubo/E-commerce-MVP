@@ -46,9 +46,10 @@ class Product extends Model
 
     public function getWhatsappUrlAttribute(): string
     {
-        $number = Setting::where('key', 'whatsapp_number')->value('value');
-        $baseMessage = Setting::where('key', 'welcome_message')->value('value');
-        
+        $settings = Setting::cached();
+        $number = $settings->get('whatsapp_number');
+        $baseMessage = $settings->get('welcome_message');
+
         if (!$number) return '#';
 
         $message = $baseMessage . " " . $this->name . " (Precio: $" . number_format($this->discount_price ?? $this->price, 2) . ")";

@@ -28,7 +28,7 @@
                         </div>
                         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex justify-center">
                              @if($offer->images->isNotEmpty())
-                                <img src="{{ asset('storage/' . $offer->images->first()->image_path) }}" alt="{{ $offer->name }}" class="rounded-lg shadow-lg max-h-80 object-cover">
+                                <img src="{{ upload_url($offer->images->first()->image_path) }}" alt="{{ $offer->name }}" class="rounded-lg shadow-lg max-h-80 object-cover">
                              @else
                                 <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
                              @endif
@@ -138,7 +138,7 @@
             @foreach($combos as $combo)
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     @if($combo->image_path)
-                        <img class="rounded-t-lg w-full h-32 sm:h-48 object-cover" src="{{ asset('storage/' . $combo->image_path) }}" alt="{{ $combo->name }}">
+                        <img class="rounded-t-lg w-full h-32 sm:h-48 object-cover" src="{{ upload_url($combo->image_path) }}" alt="{{ $combo->name }}">
                     @else
                         <div class="w-full h-32 sm:h-48 bg-gray-200 rounded-t-lg flex items-center justify-center text-gray-500">Sin Imagen</div>
                     @endif
@@ -152,7 +152,7 @@
                                     data-id="combo-{{ $combo->id }}"
                                     data-name="{{ $combo->name }}"
                                     data-price="{{ $combo->price }}"
-                                    data-image="{{ $combo->image_path ? asset('storage/' . $combo->image_path) : '' }}"
+                                    data-image="{{ $combo->image_path ? upload_url($combo->image_path) : '' }}"
                                     class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs sm:text-sm font-medium text-white bg-dark hover:bg-black dark:hover:bg-gray-700 rounded-lg transition-colors">
                                 <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
